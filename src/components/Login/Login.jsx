@@ -35,7 +35,21 @@ function LoginModule() {
         const response = await signInWithEmailAndPassword(auth,
         values.email,
         values.password
-    );
+    ).catch((error) => {
+        // Handle Errors here.
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      if (errorCode === 'auth/wrong-password') {
+        alert('Wrong Password');
+      } 
+      else if (errorCode == 'auth/user-not-found'){
+        alert('Wrong email, please Register the email first');
+      }
+      else {
+        alert(errorMessage);
+      }
+      console.log(error);
+      })  
       sessionCheck(response)
     };
 
